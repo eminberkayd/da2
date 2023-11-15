@@ -1,32 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { UpdatePostDto, CreatePostDto } from './dto';
+import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostService {
+  create(createPostDto: CreatePostDto) {
+    return 'This action adds a new post';
+  }
 
-    get(id: number) {
-        return 123;
-    }
+  findAll() {
+    return `This action returns all post`;
+  }
 
+  findOne(id: number) {
+    return `This action returns a #${id} post`;
+  }
 
-    create(createPostDto: CreatePostDto) {
+  update(id: number, updatePostDto: UpdatePostDto) {
+    return `This action updates a #${id} post`;
+  }
 
-    }
-
-    update({ id, updatePostDto }: { id: string, updatePostDto: UpdatePostDto }) {
-
-    }
-
-
-    delete(id: number) {
-
-    }
-
-    like({ id, user }: { id: number, user: string }) {
-
-    }
-
-    dislike({ id, user }: { id: number, user: string }) {
-
-    }
+  remove(id: number) {
+    return `This action removes a #${id} post`;
+  }
 }
