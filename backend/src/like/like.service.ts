@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class LikeService {
 
-    getPostLikes( id: number){
+    getLikesOfPost(id: number){
 
     }
 
-    likePost(){
+    createLikePost(){
 
     }
 
@@ -15,7 +15,7 @@ export class LikeService {
 
     }
 
-    getCommentLikes(){
+    getLikesOfComment(id: string){
 
     }
 
