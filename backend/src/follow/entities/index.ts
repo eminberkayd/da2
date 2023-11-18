@@ -1,1 +1,1 @@
-export * from "./follow.entity";
+export * from './follow.entity';
