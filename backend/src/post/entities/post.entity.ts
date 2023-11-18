@@ -1,31 +1,51 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToOne } from "typeorm";
-import { CreatePostDto } from "../dto";
-import { User } from "src/user";
+import {
+    Entity,
+    BaseEntity,
+    Column,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    ManyToOne,
+    JoinColumn,
+    UpdateDateColumn,
+    OneToMany,
+} from 'typeorm';
+import { User } from 'src/user/entities';
+import { Comment } from 'src/comment';
+import { PostLike } from 'src/like/entities/post-like.entity';
+import { PostDislike } from 'src/dislike/entities/post-dislike.entity';
 
-@Entity()
-export class Post {
-    constructor({text}: CreatePostDto){
-
-    }
-
+@Entity({ name: "posts" })
+export class Post extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
-
+    id: number;
 
     @Column({
-        type: "text"
+        type: 'text',
+        nullable: false
     })
-    text_content: string;
+    content: string;
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     image_url: string;
 
-    @OneToOne(() => User)
-    user_id: number;
+    @ManyToOne(() => User, (user) => user.posts)
+    @JoinColumn({ name: 'user_id' })
+    user: User;
+
+    @OneToMany(() => Comment, comment => comment.post)
+    comments: Comment[];
+
+    @OneToMany(() => PostLike, postLike => postLike.post)
+    likes: PostLike[];
+
+    @OneToMany(() => PostDislike, postDislike => postDislike.post)
+    dislikes: PostDislike[];
 
     @CreateDateColumn()
     created_at: Date;
 
-    @Column()
+    @UpdateDateColumn()
     updated_at: Date;
 }
